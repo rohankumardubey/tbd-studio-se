@@ -56,5 +56,11 @@
     "K8S_AZURESECRETKEY": "",
     "K8S_AZUREAADKEY": "",
     "K8S_AZUREAADCLIENTID": "",
-    "K8S_AZUREAADDIRECTORYID": ""
+    "K8S_AZUREAADDIRECTORYID": "",
+    "GOOGLE_PROJECT_ID": "my-google-project", 
+    "GOOGLE_CLUSTER_ID": "my-cluster-id", 
+    "GOOGLE_REGION": "global", 
+    "GOOGLE_JARS_BUCKET": "gs://my-bucket/talend/jars",
+    "PATH_TO_GOOGLE_CREDENTIALS": "",
+    "OAUTH_ACCESS_TOKEN": ""
 }

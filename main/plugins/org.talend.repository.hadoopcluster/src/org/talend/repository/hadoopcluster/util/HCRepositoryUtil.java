@@ -737,6 +737,8 @@ public class HCRepositoryUtil {
     public static void fillDefaultValuesOfHadoopCluster(HadoopClusterConnection connection) {
         String distribution = connection.getDistribution();
         String version = connection.getDfVersion();
+        String sparkMode  = connection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SPARK_MODE);
+        
         if (distribution == null) {
             return;
         }
@@ -864,10 +866,24 @@ public class HCRepositoryUtil {
         if (defaultGoogleRegion != null) {
             connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_GOOGLE_REGION, defaultGoogleRegion);
         }
-        String defaultGoogleJarsBucket = hiveVersion.getDefaultConfig(distribution,
-                EHadoopProperties.GOOGLE_JARS_BUCKET.getName());
+        String defaultGoogleJarsBucket = hiveVersion.getDefaultConfig(distribution, EHadoopProperties.GOOGLE_JARS_BUCKET.getName());
         if (defaultGoogleJarsBucket != null) {
             connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_GOOGLE_JARS_BUCKET, defaultGoogleJarsBucket);
+        }
+        
+        String defaultGoogleAuthMode =  hiveVersion.getDefaultConfig(distribution, EHadoopProperties.AUTH_MODE.getName());
+        if (defaultGoogleAuthMode != null) {
+            connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_AUTH_MODE, defaultGoogleAuthMode);
+        }
+        
+        String defaultPathToGoogleCredentials = hiveVersion.getDefaultConfig(distribution, EHadoopProperties.PATH_TO_GOOGLE_CREDENTIALS.getName());
+        if (defaultPathToGoogleCredentials != null) {
+            connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_PATH_TO_GOOGLE_CREDENTIALS, defaultPathToGoogleCredentials);
+        }
+        
+        String defaultGoogleOauthToken = hiveVersion.getDefaultConfig(distribution, EHadoopProperties.OAUTH_ACCESS_TOKEN.getName());
+        if (defaultGoogleOauthToken != null) {
+            connection.getParameters().put(ConnParameterKeys.CONN_PARA_OAUTH2_TOKEN_TO_GOOGLE_CREDENTIALS, defaultGoogleOauthToken);
         }
         String defaultWebHCatHostName = hiveVersion.getDefaultConfig(distribution,
                 EHadoopProperties.HD_WEBHCAT_HOSTNAME.getName());
@@ -944,6 +960,11 @@ public class HCRepositoryUtil {
         if (synapseFsContainer != null) {
             connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_FS_CONTAINER, synapseFsContainer);
         }
+        String synapseAuthMode = hiveVersion.getDefaultConfig(distribution,
+                EHadoopProperties.ADLSGEN2AUTH.getName());
+        if (synapseAuthMode != null) {
+            connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_AUTH_MODE, synapseAuthMode);
+        }
         String synapseFsUsername =  hiveVersion.getDefaultConfig(distribution,
         		EHadoopProperties.SYNAPSE_STORAGE_USERNAME.getName());
         if (synapseFsUsername != null) {
@@ -953,6 +974,21 @@ public class HCRepositoryUtil {
                 EHadoopProperties.SYNAPSE_STORAGE_PASSWORD.getName());
         if (synapseFsPassword != null) {
             connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_FS_PASSWORD, synapseFsPassword);
+        }
+        String synapseclientId =  hiveVersion.getDefaultConfig(distribution,
+        		EHadoopProperties.SYNAPSE_APPLICATION_ID.getName());
+        if (synapseclientId != null) {
+        	connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_APPLICATION_ID, synapseclientId);
+        }
+        String synapsedirectoryId =  hiveVersion.getDefaultConfig(distribution,
+        		EHadoopProperties.SYNAPSE_DIRECTORY_ID.getName());
+        if (synapseclientId != null) {
+        	connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_DIRECTORY_ID, synapsedirectoryId);
+        }
+        String synapseclientKey = hiveVersion.getDefaultConfig(distribution,
+                EHadoopProperties.SYNAPSE_CLIENT_KEY.getName());
+        if (synapseclientKey != null) {
+            connection.getParameters().put(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_CLIENT_KEY, synapseclientKey);
         }
         String synapseDeployBlob = hiveVersion.getDefaultConfig(distribution,
                 EHadoopProperties.DEPLOY_FOLDER.getName());

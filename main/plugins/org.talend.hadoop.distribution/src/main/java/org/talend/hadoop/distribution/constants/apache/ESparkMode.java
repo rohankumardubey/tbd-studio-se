@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.hadoop.distribution.constants.apache;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.talend.hadoop.distribution.i18n.Messages;
 public enum ESparkMode {
 
@@ -27,16 +30,20 @@ public enum ESparkMode {
     KUBERNETES(Messages.getString("ESparkMode.KUBERNETES"),
             "SPARK_K8S",
             "(DISTRIB[DISTRIBUTION, SPARK_VERSION].doSupportSparkYarnK8SMode[])"),
-    SPARK_LOCAL(Messages.getString("ESparkMode.SPARK_LOCAL"),
-            "SPARK_LOCAL",
-            "(DISTRIB[DISTRIBUTION, SPARK_VERSION].doSupportUniversalLocalMode[])"),
     CDE(Messages.getString("ESparkMode.CDE"), "CDE", "(DISTRIB[DISTRIBUTION, SPARK_VERSION].doSupportUniversalCDEMode[])"),
     DATAPROC(Messages.getString("ESparkMode.DATAPROC"),
             "DATAPROC",
             "(DISTRIB[DISTRIBUTION, SPARK_VERSION].doSupportUniversalDataprocMode[])"),
     DATABRICKS(Messages.getString("ESparkMode.DATABRICKS"),
             "DATABRICKS",
-            "(DISTRIB[DISTRIBUTION, SPARK_VERSION].doSupportUniversalDBRMode[])");
+            "(DISTRIB[DISTRIBUTION, SPARK_VERSION].doSupportUniversalDBRMode[])"),
+    STANDALONE(Messages.getString("ESparkMode.STANDALONE"),
+            "STANDALONE",
+            "(DISTRIB[DISTRIBUTION, SPARK_VERSION].doSupportUniversalStandaloneMode[])"),
+    SPARK_LOCAL(Messages.getString("ESparkMode.SPARK_LOCAL"),
+            "SPARK_LOCAL",
+            "(DISTRIB[DISTRIBUTION, SPARK_VERSION].doSupportUniversalLocalMode[])");
+	// we want spark local by default if possible so please let it last in this list
 
     private String runModeLabel;
 
@@ -44,6 +51,14 @@ public enum ESparkMode {
 
     private String displayCondition;
 
+    private static final Map<String, ESparkMode> sparkModeByLabel = new HashMap<String, ESparkMode>();
+
+    static {
+        for (ESparkMode m : ESparkMode.values()) {
+            sparkModeByLabel.put(m.getLabel(), m);
+        }
+    }
+    
     ESparkMode(String runModeLabel, String runModeValue, String displayCondition) {
         this.runModeLabel = runModeLabel;
         this.runModeValue = runModeValue;
@@ -60,6 +75,10 @@ public enum ESparkMode {
 
     public String getDisplayCondition() {
         return displayCondition;
+    }
+
+    public static ESparkMode getByLabel(String label) {
+        return sparkModeByLabel.get(label);
     }
 
 }

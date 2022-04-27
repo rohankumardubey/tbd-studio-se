@@ -217,12 +217,18 @@ public class HadoopClusterDragAndDropHandler extends AbstractDragAndDropServiceH
         } else if (EHDFSRepositoryToComponent.GOOGLE_JARS_BUCKET.getRepositoryValue().equals(value)) {
             return getRepositoryValueOfStringType(hcConnection,
                     hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_GOOGLE_JARS_BUCKET));
-        } else if (EHDFSRepositoryToComponent.DEFINE_PATH_TO_GOOGLE_CREDENTIALS.getRepositoryValue().equals(value)) {
+        } else if (EHDFSRepositoryToComponent.DEFINE_GOOGLE_CREDENTIALS.getRepositoryValue().equals(value)) {
             return Boolean.parseBoolean(hcConnection.getParameters().get(
-                    ConnParameterKeys.CONN_PARA_KEY_DEFINE_PATH_TO_GOOGLE_CREDENTIALS));
+                    ConnParameterKeys.CONN_PARA_KEY_PROVIDE_GOOGLE_CREDENTIALS));
+        } else if (EHDFSRepositoryToComponent.AUTH_MODE.getRepositoryValue().equals(value)) {
+            return getRepositoryValueOfStringType(hcConnection, 
+            		hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_AUTH_MODE));
         } else if (EHDFSRepositoryToComponent.PATH_TO_GOOGLE_CREDENTIALS.getRepositoryValue().equals(value)) {
             return getRepositoryValueOfStringType(hcConnection,
                     hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_PATH_TO_GOOGLE_CREDENTIALS));
+        } else if (EHDFSRepositoryToComponent.OAUTH_ACCESS_TOKEN.getRepositoryValue().equals(value)) {
+            return getRepositoryValueOfStringType(hcConnection,
+            		EncryptionUtil.getValue(hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_OAUTH2_TOKEN_TO_GOOGLE_CREDENTIALS), false));
         } else if (EHDFSRepositoryToComponent.DATABRICKS_ENDPOINT.getRepositoryValue().equals(value)) {
             return getRepositoryValueOfStringType(hcConnection,
                     hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_DATABRICKS_ENDPOINT));
@@ -349,13 +355,25 @@ public class HadoopClusterDragAndDropHandler extends AbstractDragAndDropServiceH
         } else if (EHDFSRepositoryToComponent.SYNAPSE_STORAGE_CONTAINER.getRepositoryValue().equals(value)) {
             return getRepositoryValueOfStringType(hcConnection,
                     hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_FS_CONTAINER));
+        } else if (EHDFSRepositoryToComponent.ADLSGEN2AUTH.getRepositoryValue().equals(value)) {
+            return getRepositoryValueOfStringType(hcConnection,
+                    hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_AUTH_MODE));    
         } else if (EHDFSRepositoryToComponent.SYNAPSE_STORAGE_USERNAME.getRepositoryValue().equals(value)) {
             return getRepositoryValueOfStringType(hcConnection,
                     hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_FS_USERNAME));
         } else if (EHDFSRepositoryToComponent.SYNAPSE_STORAGE_PASSWORD.getRepositoryValue().equals(value)) {
             return getRepositoryValueOfStringType(hcConnection,
                     hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_FS_PASSWORD));
-        } else if (EHDFSRepositoryToComponent.DEPLOY_FOLDER.getRepositoryValue().equals(value)) {
+        } else if (EHDFSRepositoryToComponent.SYNAPSE_APPLICATION_ID.getRepositoryValue().equals(value)) {
+            return getRepositoryValueOfStringType(hcConnection,
+                    hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_APPLICATION_ID));
+        } else if (EHDFSRepositoryToComponent.SYNAPSE_DIRECTORY_ID.getRepositoryValue().equals(value)) {
+            return getRepositoryValueOfStringType(hcConnection,
+                    hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_DIRECTORY_ID));
+        } else if (EHDFSRepositoryToComponent.SYNAPSE_CLIENT_KEY.getRepositoryValue().equals(value)) {
+            return getRepositoryValueOfStringType(hcConnection,
+                    hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_CLIENT_KEY));
+        }  else if (EHDFSRepositoryToComponent.DEPLOY_FOLDER.getRepositoryValue().equals(value)) {
             return getRepositoryValueOfStringType(hcConnection,
                     hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_SYNAPSE_DEPLOY_BLOB));
         } else if (EHDFSRepositoryToComponent.SPARK_DRIVER_MEMORY.getRepositoryValue().equals(value)) {
@@ -370,6 +388,30 @@ public class HadoopClusterDragAndDropHandler extends AbstractDragAndDropServiceH
         } else if (EHDFSRepositoryToComponent.ADVANCED_SETTINGS_CHECK.getRepositoryValue().equals(value)) {
             return Boolean.parseBoolean(hcConnection.getParameters().get(
                     ConnParameterKeys.CONN_PARA_KEY_TUNING_PROPERTIES));
+
+        } else if (EHDFSRepositoryToComponent.CDE_API_ENDPOINT.getRepositoryValue().equals(value)) {
+            return getRepositoryValueOfStringType(hcConnection,
+                    hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_CDE_API_ENDPOINT));
+
+        } else if (EHDFSRepositoryToComponent.CDE_TOKEN.getRepositoryValue().equals(value)) {
+            return getRepositoryValueOfStringType(hcConnection,
+                    hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_CDE_TOKEN));
+
+        } else if (EHDFSRepositoryToComponent.CDE_AUTO_GENERATE_TOKEN.getRepositoryValue().equals(value)) {
+            return Boolean
+                    .parseBoolean(hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_CDE_AUTO_GENERATE_TOKEN));
+
+        } else if (EHDFSRepositoryToComponent.CDE_TOKEN_ENDPOINT.getRepositoryValue().equals(value)) {
+            return getRepositoryValueOfStringType(hcConnection,
+                    hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_CDE_TOKEN_ENDPOINT));
+
+        } else if (EHDFSRepositoryToComponent.CDE_WORKLOAD_USER.getRepositoryValue().equals(value)) {
+            return getRepositoryValueOfStringType(hcConnection,
+                    hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_CDE_WORKLOAD_USER));
+
+        } else if (EHDFSRepositoryToComponent.CDE_WORKLOAD_PASSWORD.getRepositoryValue().equals(value)) {
+            return getRepositoryValueOfStringType(hcConnection,
+                    hcConnection.getParameters().get(ConnParameterKeys.CONN_PARA_KEY_CDE_WORKLOAD_PASSWORD));
         }
         return null;
     }

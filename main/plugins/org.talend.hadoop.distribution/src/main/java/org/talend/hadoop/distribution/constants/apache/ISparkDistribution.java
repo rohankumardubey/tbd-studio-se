@@ -40,5 +40,17 @@ public interface ISparkDistribution {
     List<EKubernetesAzureCredentials> getK8sAzureCredentials();
     
     List<EKubernetesS3Credentials> getK8sS3Credentials();
+
+    public boolean doSupportUniversalDBRMode();
+    
+    public boolean doSupportUniversalDataprocMode();
+    
+    public boolean doSupportUniversalLocalMode();
+    
+    public boolean doSupportSparkYarnK8SMode();
+    
+    public boolean doSupportSparkYarnClusterMode();
+    
+    public boolean doSupportUniversalStandaloneMode();
     
 }

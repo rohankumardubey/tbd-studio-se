@@ -58,8 +58,6 @@ public class KnoxInfoForm extends AbstractHadoopClusterInfoForm<HadoopClusterCon
     private Button keytabBtn;
     private LabelledFileField keytabText;
     
-    private ScrolledComposite scrolledComposite;
-
     private UtilsButton checkServicesBtn;
     
     private final boolean creation;
@@ -342,17 +340,16 @@ public class KnoxInfoForm extends AbstractHadoopClusterInfoForm<HadoopClusterCon
 
     @Override
     public void updateForm() {
-        kerberosBtn.setEnabled(true);
-        namenodePrincipalText.setEditable(kerberosBtn.isEnabled() && kerberosBtn.getSelection());
+        namenodePrincipalText.setEditable( kerberosBtn.getSelection());
         jtOrRmPrincipalText.setEditable(namenodePrincipalText.getEditable());
         jobHistoryPrincipalText.setEditable(getConnection().isEnableKerberos());
-        keytabBtn.setEnabled(kerberosBtn.isEnabled() && kerberosBtn.getSelection());
+        keytabBtn.setEnabled( kerberosBtn.getSelection());
         keytabPrincipalText.setEditable(keytabBtn.isEnabled() && keytabBtn.getSelection());
         keytabText.setEditable(keytabBtn.isEnabled() && keytabBtn.getSelection());
         keytabPrincipalText
-                .setHideWidgets(!(kerberosBtn.isEnabled() && kerberosBtn.getSelection() && keytabBtn.isEnabled() && keytabBtn
+                .setHideWidgets(!( kerberosBtn.getSelection() && keytabBtn.isEnabled() && keytabBtn
                         .getSelection()));
-        keytabText.setVisible(kerberosBtn.isEnabled() && kerberosBtn.getSelection() && keytabBtn.isEnabled()
+        keytabText.setVisible( kerberosBtn.getSelection() && keytabBtn.isEnabled()
                 && keytabBtn.getSelection());
         hideKerberosControl(!kerberosBtn.getSelection());
         adaptFormToEditable();
@@ -396,19 +393,23 @@ public class KnoxInfoForm extends AbstractHadoopClusterInfoForm<HadoopClusterCon
                 ConnParameterKeys.CONN_PARA_KEY_KNOX_DIRECTORY));
         knoxDirectoryText.setText(knoxDirectory);
         
+        HadoopClusterConnection connection = getConnection();
+        kerberosBtn.setSelection(connection.isEnableKerberos());
+        namenodePrincipalText.setText(connection.getPrincipal());
+        jtOrRmPrincipalText.setText(connection.getJtOrRmPrincipal());
+        jobHistoryPrincipalText.setText(connection.getJobHistoryPrincipal());
+        keytabBtn.setSelection(connection.isUseKeytab());
+        keytabPrincipalText.setText(connection.getKeytabPrincipal());
+        keytabText.setText(connection.getKeytab());
+        
         updateStatus(IStatus.OK, EMPTY_STRING);
     }
 
     @Override
     protected void addFields() {
-    	scrolledComposite = new ScrolledComposite(this, SWT.V_SCROLL | SWT.H_SCROLL);
-        scrolledComposite.setExpandHorizontal(true);
-        scrolledComposite.setExpandVertical(true);
-        scrolledComposite.setLayoutData(new GridData(GridData.FILL_BOTH));
-
         addConfigurationFields();
-        addCheckFields();
         addAuthenticationFields();
+        addCheckFields();
     }
     
     private void fillDefaults() {

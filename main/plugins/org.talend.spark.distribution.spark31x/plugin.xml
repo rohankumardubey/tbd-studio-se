@@ -203,7 +203,7 @@
             
             <libraryNeeded context="plugin:org.talend.spark.distribution.spark31x" id="bigquery-connector-hadoop3-1.1.6-shaded" name="bigquery-connector-hadoop3-1.1.6-shaded.jar" mvn_uri="mvn:com.google.cloud.bigdataoss/bigquery-connector/hadoop3-1.1.6/jar/shaded"/>
             
-            <libraryNeeded context="plugin:org.talend.spark.distribution.spark31x" id="delta-core_2.12-0.7.0.jar" name="delta-core_2.12-0.7.0.jar" mvn_uri="mvn:io.delta/delta-core_2.12/0.7.0"/>
+            <libraryNeeded context="plugin:org.talend.spark.distribution.spark31x" id="delta-core_2.12-1.0.0.jar" name="delta-core_2.12-1.0.0.jar" mvn_uri="mvn:io.delta/delta-core_2.12/1.0.0"/>
             
             <libraryNeeded context="plugin:org.talend.spark.distribution.spark31x" id="spark-cassandra-connector-assembly_2.12-3.1.1.jar" name="spark-cassandra-connector-assembly_2.12-3.1.1.jar" mvn_uri="mvn:com.datastax.spark/spark-cassandra-connector-assembly_2.12/3.1.1"/>
             <libraryNeeded context="plugin:org.talend.spark.distribution.spark31x" id="jnr-posix-3.1.0.jar" name="jnr-posix-3.1.0.jar" mvn_uri="mvn:com.github.jnr/jnr-posix/3.1.0"/>
@@ -348,6 +348,7 @@
             <library id="parquet-encoding-1.10.1.jar"/>
             <library id="parquet-format-2.4.0.jar"/>
             <library id="parquet-hadoop-1.10.1.jar"/>
+            <library id="snappy-java-1.1.8.2.jar"/>
             <library id="protobuf-java-2.5.0.jar"/>
             <library id="py4j-0.10.9.jar"/>
             <library id="re2j-1.1.jar"/>
@@ -362,6 +363,7 @@
             <library id="spark-kubernetes_2.12-3.1.1.jar"/>
             <library id="spark-kvstore_2.12-3.1.1.jar"/>
             <library id="spark-launcher_2.12-3.1.1.jar"/>
+            <library id="spark-mllib_2.12-3.1.1.jar"/>
             <library id="spark-mllib-local_2.12-3.1.1.jar"/>
             <library id="spark-network-common_2.12-3.1.1.jar"/>
             <library id="spark-network-shuffle_2.12-3.1.1.jar"/>
@@ -435,7 +437,8 @@
 
         <!-- DeltaLake group -->
         <libraryNeededGroup description="DeltaLake libraries for spark311" id="DELTALAKE-GROUP-SPARK_3_1_x" name="DELTALAKE-GROUP-SPARK_3_1_x">
-            <library id="delta-core_2.12-0.7.0.jar"/>
+            <library id="delta-core_2.12-1.0.0.jar"/>
+            <library id="snappy-java-1.1.8.2.jar"/>
         </libraryNeededGroup>
         
         <!-- Cassandra group -->
@@ -470,6 +473,8 @@
         
         <!-- spark 3 ML group -->
         <libraryNeededGroup description="ML libraries for spark311" id="ML-GROUP-SPARK_3_1_x" name="ML-GROUP-SPARK_3_1_x">
+            <library id="arpack_combined_all-0.1.jar"/>
+            <library id="core-1.1.2.jar"/>
         </libraryNeededGroup>
 
         <!-- commons math3 group -->
